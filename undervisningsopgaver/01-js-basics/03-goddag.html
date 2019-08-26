@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    Skriv dit navn her: <input type="text" id="name">
+    <button>Indsend</button>
+    <script>
+        const knap = document.querySelector("button");
+        knap.addEventListener("click", goddag);
+
+        function goddag() {
+            const navn = document.querySelector("input").value;
+            console.log("Goddag " + navn);
+        }
+    </script>
+</body></html>
