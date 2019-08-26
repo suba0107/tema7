@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <h1>CO2beregner</h1>
+    Angiv længden på flyrejsen i timer <input id="laengde"> <br>
+    <button>Udregn og vis i konsol</button>
+    <script>
+        const knap = document.querySelector("button");
+        knap.addEventListener("click", knapKlik);
+
+        function knapKlik() {
+            let timer = document.querySelector("#laengde").value;
+            let kg = udregner(timer);
+            let besked = `Ved ${timer} timers flyrejse har du udledt ${kg} kg CO2.`;
+            if (Number.isNaN(kg)) {
+                console.log("Skriv venligst kun tal.");
+            } else if (kg < 0) {
+                console.log("Skriv venligst kun positive tal.");
+            } else if (kg >= 0 && kg < 100) {
+                console.log(`${besked}  Tæt på Thunberg`);
+            } else if (kg >= 100 && kg < 200) {
+                console.log(`${besked}  Ja ja, du behøver ikke at melde dig ud af Å!`);
+            } else if (kg >= 200 && kg <= 600) {
+                console.log(`${besked} Det er godt for turismen i nordeuropa.`);
+            } else if (kg > 600) {
+                console.log(`${besked} Nå ja vi kan jo altid kolonisere en anden planet ...`)
+            }
+        }
+
+        function udregner(t) {
+            return (t * 109)
+        }
+    </script>
+</body></html>
