@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Arealberegner</h1>
+    Indtast længden i meter: <input id="laengden"> <br>
+    Indtast bredden i meter: <input id="bredden">
+    <button>Udregn og vis i konsol</button>
+    <script>
+        const knap = document.querySelector("button");
+        knap.addEventListener("click", knapKlik);
+
+        function knapKlik() {
+            let laengde = document.querySelector("#laengden").value;
+            let bredde = document.querySelector("#bredden").value;
+            let resultat = areal(laengde, bredde);
+            if (Number.isNaN(resultat)) {
+                console.log("Skriv venligst kun tal.");
+
+            } else if (resultat <= 0) {
+                console.log("Skriv venligst kun tal over 0.");
+            } else {
+                console.log(`${resultat}`);
+            }
+        }
+
+        function areal(l, b) {
+            return (l * b);
+        }
+    </script>
+</body></html>
