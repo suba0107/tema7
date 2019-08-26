@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Arealberegner</h1>
+    Indtast længden i meter: <input type="number" id="laengden"> <br>
+    Indtast bredden i meter: <input type="number" id="bredden">
+    <button>Udregn og vis i konsol</button>
+    <script>
+        const knap = document.querySelector("button");
+        knap.addEventListener("click", beregn);
+
+        function beregn() {
+            let laengde = document.querySelector("#laengden").value;
+            let bredde = document.querySelector("#bredden").value;
+            let areal = laengde * bredde;
+            console.log(`Længde: ${laengde} meter, bredde: ${bredde} meter, areal: ${areal} cm2`);
+        }
+    </script>
+</body></html>
