@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #firkant {
+            background-color: green;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #cirkel {
+            background-color: red;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="firkant"></div>
+    <div id="cirkel"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        console.log("Start");
+        let firkant = document.querySelector("#firkant");
+        let cirkel = document.querySelector("#cirkel");
+        let frog = `http://mabe-kea.dk/E19/pics/frog.png`;
+        let pig = `http://mabe-kea.dk/E19/pics/pig.png`;
+
+        function start() {
+
+
+            firkant.innerHTML = `<img src= ${frog} alt="frø">`;
+            cirkel.innerHTML = `<img src= ${pig} alt="gris">`;
+            firkant.addEventListener("click", hop);
+
+
+        }
+
+        function hop() {
+            firkant.innerHTML = `<img src= ${pig} alt="frø">`;
+            cirkel.innerHTML = `<img src= ${frog} alt="gris">`;
+            cirkel.removeEventListener("click", hop);
+        }
+    </script>
+</body></html>
