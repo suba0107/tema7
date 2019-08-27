@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="content">
+        <div><a href="https://kea.dk/en/">KEA</a></div>
+        <div><a href="https://github.com/suba0107/tema7.git">gitHub</a></div>
+        <div><img src="http://mabe-kea.dk/E19/pics/frog.png" alt="frog"></div>
+    </div>
+
+    <script>
+        let content = document.querySelector("#content");
+        let firstchild = document.querySelector("#content div");
+        let secondchild = document.querySelector("div:first-of-type + div");
+        let thirdchild = document.querySelector("#content div:nth-child(3)");
+        let kea = document.querySelector("#content div a");
+        let github = document.querySelector("div:first-of-type + div a");
+        let frog = document.querySelector("#content img");
+
+        console.log(content);
+        console.log(firstchild);
+        console.log(secondchild);
+        console.log(thirdchild);
+        console.log(kea);
+        console.log(github);
+        console.log(frog);
+    </script>
+</body></html>
