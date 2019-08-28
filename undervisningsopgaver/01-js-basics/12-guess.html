@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Gæt et tal</h1>
+    <input type="number" id="tal">
+    <p></p>
+    <button>Tjek</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let knap = document.querySelector("button");
+        let tal = Math.round(Math.random() * 20);
+        let p = document.querySelector("p");
+        let gæt = 1;
+
+        function start() {
+            knap.addEventListener("click", tjek);
+            console.log(tal);
+        }
+
+        function tjek() {
+            let inputTal = document.querySelector("#tal").value;
+            console.log(inputTal);
+            if (inputTal == tal) {
+                p.textContent = `Det er rigtigt! Du brugte ${gæt} gæt på at finde tallet! Vil du prøve igen?`;
+                knap.textContent = "Prøv igen";
+                knap.addEventListener("click", restart);
+            } else if (inputTal > tal) {
+                p.textContent = "Det er desværre for højt, prøv igen!";
+                gæt++;
+            } else if (inputTal < tal) {
+                p.textContent = "Det er desværre for lavt, prøv igen!";
+                gæt++;
+            }
+        }
+
+        function restart() {
+            location.reload();
+        }
+    </script>
+</body></html>
