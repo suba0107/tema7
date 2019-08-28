@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Date-rådgivning</h1>
+    <input type="number" id="a" placeholder="Din alder">
+    <input type="number" id="b" placeholder="Din dates alder">
+    <p></p>
+    <button>Tjek</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let knap = document.querySelector("button");
+        let p = document.querySelector("p");
+
+        function start() {
+            knap.addEventListener("click", tjek);
+        }
+
+        function tjek() {
+            let inputA = document.querySelector("#a").value;
+            let inputB = document.querySelector("#b").value;
+            let y = beregningYngste(inputA);
+            let o = beregningAeldste(inputA);
+
+            if (inputA <= 15 || inputB <= 15) {
+                p.textContent = "Desværre. En af jer er 15 eller under, og derfor må beregneren ikke benyttes.";
+            } else if (inputB < y) {
+                p.textContent = `Desværre. Din date er for ung. I følge reglen kan du date folk, der er mindst ${y} og højst ${o} år gamle.`;
+            } else if (inputB > o) {
+                p.textContent = `Desværre. Din date er for gammel. I følge reglen kan du date folk, der er mindst ${y} og højst ${o} år gamle.`;
+            } else {
+                p.textContent = `Yes! I følge 'Half your age plus seven'-reglen kan I date! I følge reglen kan du date folk, der er mindst ${y} og højst ${o} år gamle.`;
+            }
+        }
+
+        function beregningYngste(a) {
+            return (a / 2 + 7);
+
+        }
+
+        function beregningAeldste(a) {
+            return ((a - 7) * 2);
+
+        }
+    </script>
+</body></html>
