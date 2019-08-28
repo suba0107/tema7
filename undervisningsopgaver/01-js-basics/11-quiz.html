@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Quiz - spørgsmål i konsollen</h1>
+    <div id="spgs"></div> <input type="text" id="cap">
+    <button>Se svar</button>
+
+    <script>
+        const knap = document.querySelector("button");
+        let spgs = document.querySelector("#spgs");
+
+        let spgs1 = "Danmark";
+        let spgs2 = "Spanien";
+        let spgs3 = "Frankrig";
+        let spgs4 = "Italien";
+        let spgs5 = "Grækenland";
+        let svar1 = "København";
+        let svar2 = "Madrid";
+        let svar3 = "Paris";
+        let svar4 = "Rom";
+        let svar5 = "Athen";
+        let point = 0;
+
+
+
+        console.log(showQs(spgs1));
+        knap.addEventListener("click", klikKnap);
+
+
+        function klikKnap() {
+            let answer1 = document.querySelector("#cap").value;
+            qsTjek(answer1, svar1);
+            console.log(showQs(spgs2));
+            knap.removeEventListener("click", klikKnap);
+            knap.addEventListener("click", klikKnap1);
+        }
+
+        function klikKnap1() {
+            let answer2 = document.querySelector("#cap").value;
+            qsTjek(answer2, svar2);
+            console.log(showQs(spgs3));
+            knap.removeEventListener("click", klikKnap1);
+            knap.addEventListener("click", klikKnap2);
+        }
+
+
+        function klikKnap2() {
+            let answer3 = document.querySelector("#cap").value;
+            qsTjek(answer3, svar3);
+            console.log(showQs(spgs4));
+            knap.removeEventListener("click", klikKnap2);
+            knap.addEventListener("click", klikKnap3);
+
+        }
+
+        function klikKnap3() {
+            let answer4 = document.querySelector("#cap").value;
+            qsTjek(answer4, svar4);
+            console.log(showQs(spgs5));
+            knap.removeEventListener("click", klikKnap3);
+            knap.addEventListener("click", klikKnap4);
+
+        }
+
+        function klikKnap4() {
+            let answer5 = document.querySelector("#cap").value;
+            qsTjek(answer5, svar5);
+            knap.removeEventListener("click", klikKnap4);
+            console.log(`Du fik ${point} ud af 5 rigtige!`)
+        }
+
+
+
+        function showQs(txt) {
+            return (`Hvad er hovedstaden i ${txt}?`)
+        }
+
+        function qsTjek(a, b) {
+            if (a == b) {
+                point++;
+                console.log("Svaret er rigtigt! Du får et point!");
+
+            } else {
+
+                console.log("Det er desværre forkert.")
+            }
+        }
+    </script>
+</body></html>
