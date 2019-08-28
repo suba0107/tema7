@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A</title>
+    <style>
+        #box,
+        #bax {
+            width: 200px;
+            height: 200px;
+            background-color: wheat;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        button {
+            font-size: 2rem;
+            margin: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button id="klik">
+        klik
+    </button>
+    <button id="slet">
+        slet
+    </button>
+    <button id="html">
+        html
+    </button>
+    <button id="flyt">
+        flyt
+    </button>
+    <div id="box">
+    </div>
+    <div id="bax"></div>
+
+    <script>
+        let klikBtn = document.querySelector("#klik");
+        let sletBtn = document.querySelector("#slet");
+        let htmlBtn = document.querySelector("#html");
+        let flytBtn = document.querySelector("#flyt");
+        let box = document.querySelector("#box");
+        let h2 = document.createElement("h2");
+        let overskrift = document.createTextNode("<h2>");
+        let p = document.createElement("p");
+        let paragraf = document.createTextNode("<p>");
+
+        klik.addEventListener("click", () => {
+            box.textContent = "KLIK";
+        })
+        slet.addEventListener("click", () => {
+            box.textContent = "";
+        })
+
+        html.addEventListener("click", () => {
+
+            box.appendChild(h2);
+            h2.appendChild(overskrift);
+            box.appendChild(p);
+            p.appendChild(paragraf);
+
+        })
+
+        flyt.addEventListener("click", () => {
+            box.removeChild(h2);
+            bax.appendChild(h2);
+            h2.appendChild(overskrift);
+            box.removeChild(p);
+            bax.appendChild(p);
+            p.appendChild(paragraf);
+        })
+    </script>
+</body></html>
