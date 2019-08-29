@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <article id="dyr">
+        <p></p>
+    </article>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let dyr = [{
+                "navn": "gris",
+                "type": "pattedyr",
+                "levested": "svinefarme"
+            },
+            {
+                "navn": "frø",
+                "type": "amfibie",
+                "levested": "vandhul"
+            },
+            {
+                "navn": "ræv",
+                "type": "pattedyr",
+                "levested": "skov"
+            },
+            {
+                "navn": "sild",
+                "type": "fisk",
+                "levested": "havet"
+            },
+            {
+                "navn": "krokodille",
+                "type": "krybdyr",
+                "levested": "flod"
+            }
+        ];
+
+        function start() {
+            console.log(dyr);
+            const liste = document.querySelector("#dyr");
+            dyr.forEach(animal => {
+                liste.innerHTML += `<p>${animal.navn}, ${animal.type}, ${animal.levested}</p>`
+            })
+        }
+    </script>
+</body></html>
