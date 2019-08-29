@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #liste {
+            display: grid;
+            grid-template-columns: 1fr;
+            text-align: justify;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .dato {
+            color: grey;
+        }
+
+        @media screen and (min-width: 600px) {
+            #liste {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 2rem;
+            }
+
+        }
+
+        @media screen and (min-width: 900px) {
+            #liste {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <section id="liste">
+        <template>
+            <article>
+                <img>
+                <h1></h1>
+                <p class="dato"></p>
+                <p class="text"></p>
+
+            </article>
+
+        </template>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        let events = [{
+                "titel": "Vandrefestival",
+                "billede": "https://dit-roskilde.dk/wp-content/uploads/2018/06/IMG_5647-300x200.jpg",
+                "text": "Vandrefestivalen, som foregår fra den 16. august til den 8. september, er ved at vokse sig til en stor begivenhed i Roskilde Kommune. I år er der 41 tilbud om vandreture - i nord, syd, øst og vest - fra få hundrede meter til 12 kilometer - for de mest energiske til kørestolsbrugere. Og så har de mange foreninger og ildsjæle, der bidrager, valgt at tilbyde mange forskellige oplevelser som en del af vandreturene. Man kan fx komme ud og…",
+                "dato": "august 16 - september 8"
+            }, {
+                "titel": "“Åben øver” hos Roskilde Gospel Singers",
+                "billede": "https://dit-roskilde.dk/wp-content/uploads/2019/08/Juni-2019c-300x200.jpg",
+                "text": "Roskilde Gospel Singers åbner for nye medlemmer Roskildes ældste gospelkor kan for 23. gang byde velkommen til en ny sæson, og åbner i den anledning op for nye medlemmer. Koret er inde i en rivende udvikling. ”I den tid vi har eksisteret, er der kommet rigtig mange nye gospelkor til, og derfor er det vigtigt, at vi hver især styrker vores forskelligheder, så det fortsat er spændende og udviklende at synge gospel, og ikke mindst - en fantastisk oplevelse at…",
+                "dato": "august 29 19:00"
+            }, {
+                "titel": "Sommerkoncert med Nathan Laube",
+                "billede": "https://dit-roskilde.dk/wp-content/uploads/2019/07/musik-koncert-kirke-kor-sang-noder-abw-3.jpg",
+                "text": "Nathan Laube regnes for en af tidens allerstørste orgelsolister. Han har sin base som professor ved den berømte Eastman School of Music i Rochester, NY, men han turnerer i hele verden som en meget efterspurgt solist.",
+                "dato": "august 29 20:00 - 22:00"
+            }, {
+                "titel": "Powerhealth – Forest Race",
+                "billede": "https://dit-roskilde.dk/wp-content/uploads/2019/05/powerhealth1-300x300.jpg",
+                "text": "Glæd dig til Powerhealth - The Forest Race, der er en dag med militær fysisk træning og udfordringer i naturen.",
+                "dato": "august 31 10:00 - 13:00"
+            }, {
+                "titel": "Mød PROPA på Sundhedsdagen i Roskilde",
+                "billede": "https://dit-roskilde.dk/wp-content/uploads/2019/06/propa-logo-300x192.png",
+                "text": "Besøg Prostatakræftforeningens stand på Sundhedsdagen lørdag den 31. august 2019 på Hestetorvet og få en god snak om hvad du som mand skal være opmærksom på. Også hvis du ikke tror, du har sygdommen. Prostatakræftforeningen har lokalgrupper over hele landet – også her i Roskilde. PROPA deltager på Sundhedsdagen i Roskilde, med et ønske om at formidle almen viden om prostatakræft og dens behandling, og derigennem fjerne tabu fra sygdommen. PROPA ønsker at fjerne den gængse opfattelse af, at sygdommen…",
+                "dato": "august 31 10:00 - 13:00"
+            },
+
+        ];
+
+        function start() {
+            const liste = document.querySelector("#liste");
+            const eventTemplate = document.querySelector("template");
+            events.forEach(event => {
+                let klon = eventTemplate.cloneNode(true).content;
+                klon.querySelector("img").src = event.billede;
+                klon.querySelector("h1").textContent = event.titel;
+                klon.querySelector(".text").textContent = event.text;
+                klon.querySelector(".dato").textContent = event.dato;
+                /* klon.querySelector("article").style.borderStyle = "double";*/
+                liste.appendChild(klon);
+
+            })
+        }
+    </script>
+</body></html>
