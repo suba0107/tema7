@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <section id="liste">
+        <template>
+            <article>
+                <h1></h1>
+                <img>
+                <p class="type"></p>
+                <p class="levested"></p>
+            </article>
+
+        </template>
+    </section>
+
+    <script>
+        let alleDyr = [];
+        document.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+
+            const liste = document.querySelector("#liste");
+            const dyreTemplate = document.querySelector("template");
+            async function getJson() {
+                let jsonData = await fetch("dyr.json");
+                alleDyr = await jsonData.json();
+                visDyr();
+            }
+
+            function visDyr() {
+                alleDyr.forEach(animal => {
+                    let klon = dyreTemplate.cloneNode(true).content;
+                    klon.querySelector("img").src = animal.billede;
+                    klon.querySelector("h1").textContent = animal.navn;
+                    klon.querySelector(".type").textContent = `Type: ${animal.type}`;
+                    klon.querySelector(".levested").textContent = `Levested: ${animal.type}`;
+                    klon.querySelector("article").style.borderStyle = "double";
+                    liste.appendChild(klon);
+
+                })
+            }
+
+            getJson();
+        }
+    </script>
+</body></html>
+
+
+
+
