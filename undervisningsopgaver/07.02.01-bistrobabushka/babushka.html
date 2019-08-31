@@ -5,6 +5,31 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
+        article {
+            margin: 0 auto;
+        }
+
+        #menu {
+            display: grid;
+            grid-template-columns: 1fr;
+
+
+        }
+
+        @media screen and (min-width: 608px) {
+            #menu {
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media screen and (min-width: 961px) {
+            #menu {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
     </style>
 </head>
 
@@ -19,13 +44,17 @@
         <button id="desserter"> Desserter</button>
         <button id="drikkevarer"> Drikkevare</button>
     </section>
+
+    <h2>Menu</h2>
     <section id="menu">
-        <h2>Menu</h2>
+
         <template>
-            <img>
-            <h3></h3>
-            <p class="text"></p>
-            <p class="price"></p>
+            <article>
+                <img>
+                <h3></h3>
+                <p class="text"></p>
+                <p class="price"></p>
+            </article>
         </template>
     </section>
     <footer></footer>
