@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+
+        .valgt {
+            background-color: orange;
+        }
+
+        button {
+            background-color: white;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        header {
+            margin: 1rem;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 2rem;
+        }
+
+        #menu {
+            display: grid;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+            padding: 2vw;
+            max-width: 1200px;
+
+
+        }
+
+        #popup {
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, .7);
+            display: none;
+            overflow: scroll;
+        }
+
+
+        .indhold {
+            width: 70vw;
+            min-height: 50vh;
+            background: #fff;
+            margin: 4rem auto;
+            padding: 10px;
+        }
+
+        .luk {
+            position: fixed;
+            right: 0;
+            font-size: 2rem;
+        }
+
+        .image {
+            width: 70%;
+        }
+
+        .full {
+            display: flex;
+            align-items: center;
+
+
+        }
+
+        .split {
+            margin-right: 1rem;
+        }
+
+        .full h2 {
+            text-align: center;
+        }
+
+        .fulltext {
+            text-align: left;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+
+        }
+
+
+        /*    @media screen and (min-width: 608px) {
+            #menu {
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media screen and (min-width: 961px) {
+            #menu {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }*/
+    </style>
+</head>
+
+<body>
+
+    <div id="popup">
+        <button class="luk">X</button>
+        <section class="indhold">
+            <article class="full">
+                <div class="split">
+                    <h2></h2>
+                    <p class="kategori"></p>
+                    <p class="fulltext"></p>
+                    <p class="oprindelse"></p>
+                    <p class="price"></p>
+                </div>
+                <img class="image" src="" alt="">
+            </article>
+
+        </section>
+    </div>
+    <header>
+        <h1>Bistro Babushka</h1>
+    </header>
+    <section id="kategorier">
+        <nav>
+            <button class="filter valgt" data-kategori="alle"> Alle</button>
+            <button class="filter" data-kategori="forretter"> Forretter</button>
+            <button class="filter" data-kategori="hovedretter"> Hovedretter</button>
+            <button class="filter" data-kategori="desserter"> Desserter</button>
+            <button class="filter" data-kategori="drikkevarer"> Drikkevarer</button>
+        </nav>
+    </section>
+    <h2 id="kat">Alle</h2>
+
+    <section id="menu">
+        <template>
+            <article>
+                <img>
+                <h3></h3>
+                <p class="text"></p>
+                <p class="price"></p>
+            </article>
+        </template>
+    </section>
+    <footer></footer>
+
+    <script>
+        let retter;
+        const menu = document.querySelector("#menu");
+        const temp = document.querySelector("template");
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            retter = await jsonData.json();
+            visMenu();
+            buttons();
+        }
+
+        function visMenu() {
+            menu.innerHTML = "";
+            retter.feed.entry.forEach(ret => {
+                if (filter == "alle" || filter == ret.gsx$kategori.$t) {
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("h3").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".text").textContent = ret.gsx$kort.$t;
+                    klon.querySelector(".price").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                    menu.appendChild(klon);
+                    menu.lastElementChild.addEventListener("click", () => {
+                        showSingle(ret)
+                    });
+                }
+            })
+        }
+
+        function showSingle(ret) {
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector(".full h2").textContent = ret.gsx$navn.$t;
+            document.querySelector(".full .image").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+            document.querySelector(".full .image").alt = ret.gsx$billede.$t;
+            document.querySelector(".fulltext").textContent =
+                ret.gsx$lang.$t;
+            document.querySelector(".oprindelse").textContent = `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+            document.querySelector(".price").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+        }
+
+        function buttons() {
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.addEventListener("click", sort);
+            })
+        }
+
+        function sort() {
+            filter = this.dataset.kategori;
+            document.querySelector("#kat").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            visMenu();
+        }
+    </script>
+</body></html>
