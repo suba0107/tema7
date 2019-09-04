@@ -29,6 +29,10 @@
             width: 100%;
         }
 
+        .image {
+            width: 20%;
+        }
+
         a {
             color: black;
         }
@@ -65,7 +69,6 @@
             }
 
         }
-
     </style>
 </head>
 
@@ -85,6 +88,8 @@
 
     <script>
         let personer;
+        let urlParams = new URLSearchParams(window.location.search);
+        let github = urlParams.get("github");
         document.addEventListener("DOMContentLoaded", getJson);
 
 
@@ -97,18 +102,21 @@
         }
 
         function visPerson() {
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back();
+            })
             personer.feed.entry.forEach(person => {
-                document.querySelector(".enkeltP h2").textContent = person.gsx$navn.$t;
-                document.querySelector(".enkeltP .image").src = person.gsx$billede.$t;
-                document.querySelector(".enkeltP .image").alt = person.gsx$navn.$t;
-                document.querySelector(".enkeltP .github").href = `http://github.com/${person.gsx$github.$t}`;
-                document.querySelector(".enkeltP .github").textContent = `${person.gsx$github.$t}`;
-                document.querySelector(".historie").textContent = person.gsx$historie.$t;
+                if (person.gsx$github.$t == github) {
+                    document.querySelector(".enkeltP h2").textContent = person.gsx$navn.$t;
+                    document.querySelector(".enkeltP .image").src = person.gsx$billede.$t;
+                    document.querySelector(".enkeltP .image").alt = person.gsx$navn.$t;
+                    document.querySelector(".enkeltP .github").href = `http://github.com/${person.gsx$github.$t}`;
+                    document.querySelector(".enkeltP .github").textContent = `${person.gsx$github.$t}`;
+                    document.querySelector(".historie").textContent = person.gsx$historie.$t;
+                }
+
 
             })
         }
-
     </script>
-</body>
-
-</html>
+</body></html>
