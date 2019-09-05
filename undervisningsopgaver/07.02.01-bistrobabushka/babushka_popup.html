@@ -10,17 +10,25 @@
             box-sizing: border-box;
         }
 
-
-        .valgt {
-            background-color: orange;
-        }
-
-        button {
-            background-color: white;
+        .wrapper {
+            font-family: Calibri, sans-serif;
+            font-weight: lighter;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         img {
             width: 100%;
+        }
+
+        button {
+            background-color: white;
+            border-style: solid;
+            border-radius: 15px;
+        }
+
+        .valgt {
+            background-color: orange;
         }
 
         header {
@@ -30,6 +38,10 @@
         nav {
             text-align: center;
             margin-top: 1rem;
+        }
+
+        h1 {
+            color: #9b6f1f
         }
 
         h2 {
@@ -44,9 +56,6 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             grid-gap: 20px;
             padding: 2vw;
-            max-width: 1200px;
-
-
         }
 
         #popup {
@@ -57,8 +66,9 @@
             background: rgba(0, 0, 0, .7);
             display: none;
             overflow: scroll;
+            font-family: Calibri, sans-serif;
+            font-weight: lighter;
         }
-
 
         .indhold {
             width: 70vw;
@@ -71,7 +81,10 @@
         .luk {
             position: fixed;
             right: 0;
+            margin: 1rem;
+            border-radius: 15px;
             font-size: 2rem;
+            font-weight: bold;
         }
 
         .image {
@@ -81,8 +94,6 @@
         .full {
             display: flex;
             align-items: center;
-
-
         }
 
         .split {
@@ -99,22 +110,6 @@
             margin-bottom: 1rem;
 
         }
-
-
-        /*    @media screen and (min-width: 608px) {
-            #menu {
-                grid-template-columns: repeat(2, 1fr);
-
-            }
-
-        }
-
-        @media screen and (min-width: 961px) {
-            #menu {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-        }*/
     </style>
 </head>
 
@@ -136,32 +131,32 @@
 
         </section>
     </div>
-    <header>
-        <h1>Bistro Babushka</h1>
-    </header>
-    <section id="kategorier">
-        <nav>
-            <button class="filter valgt" data-kategori="alle"> Alle</button>
-            <button class="filter" data-kategori="forretter"> Forretter</button>
-            <button class="filter" data-kategori="hovedretter"> Hovedretter</button>
-            <button class="filter" data-kategori="desserter"> Desserter</button>
-            <button class="filter" data-kategori="drikkevarer"> Drikkevarer</button>
-        </nav>
-    </section>
-    <h2 id="kat">Alle</h2>
+    <div class="wrapper">
+        <header>
+            <h1>Bistro Babushka</h1>
+        </header>
+        <section id="kategorier">
+            <nav>
+                <button class="filter valgt" data-kategori="alle"> Alle</button>
+                <button class="filter" data-kategori="forretter"> Forretter</button>
+                <button class="filter" data-kategori="hovedretter"> Hovedretter</button>
+                <button class="filter" data-kategori="desserter"> Desserter</button>
+                <button class="filter" data-kategori="drikkevarer"> Drikkevarer</button>
+            </nav>
+        </section>
+        <h2 id="kat">Alle</h2>
 
-    <section id="menu">
-        <template>
-            <article>
-                <img>
-                <h3></h3>
-                <p class="text"></p>
-                <p class="price"></p>
-            </article>
-        </template>
-    </section>
-    <footer></footer>
-
+        <section id="menu">
+            <template>
+                <article>
+                    <img>
+                    <h3></h3>
+                    <p class="text"></p>
+                    <p class="price"></p>
+                </article>
+            </template>
+        </section>
+    </div>
     <script>
         let retter;
         const menu = document.querySelector("#menu");
@@ -195,6 +190,7 @@
 
         function showSingle(ret) {
             document.querySelector("#popup").style.display = "block";
+            document.querySelector("#popup .luk").addEventListener("click", closeSingle);
             document.querySelector(".full h2").textContent = ret.gsx$navn.$t;
             document.querySelector(".full .image").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
             document.querySelector(".full .image").alt = ret.gsx$billede.$t;
@@ -202,6 +198,10 @@
                 ret.gsx$lang.$t;
             document.querySelector(".oprindelse").textContent = `Oprindelse: ${ret.gsx$oprindelse.$t}`;
             document.querySelector(".price").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+        }
+
+        function closeSingle() {
+            document.querySelector("#popup").style.display = "none";
         }
 
         function buttons() {

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+            font-weight: lighter;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        button {
+            background-color: white;
+            border-style: solid;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            padding: 0.5rem;
+        }
+
+        .valgt {
+            background-color: orange;
+        }
+
+
+        header {
+            margin: 1rem;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        h1 {
+            color: #9b6f1f
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 3rem;
+        }
+
+        #menu {
+            display: grid;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+            padding: 2vw;
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Bistro Babushka</h1>
+    </header>
+    <section id="kategorier">
+        <nav>
+            <button class="filter valgt" data-kategori="alle"> Alle</button>
+            <button class="filter" data-kategori="forretter"> Forretter</button>
+            <button class="filter" data-kategori="hovedretter"> Hovedretter</button>
+            <button class="filter" data-kategori="desserter"> Desserter</button>
+            <button class="filter" data-kategori="drikkevarer"> Drikkevarer</button>
+        </nav>
+    </section>
+    <h2 id="kat">Alle</h2>
+
+    <section id="menu">
+        <template>
+            <article class="content">
+                <img>
+                <h3></h3>
+                <p class="text"></p>
+                <p class="price"></p>
+            </article>
+        </template>
+    </section>
+
+    <script>
+        let retter;
+        const menu = document.querySelector("#menu");
+        const temp = document.querySelector("template");
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            retter = await jsonData.json();
+            visMenu();
+            buttons();
+        }
+
+        function visMenu() {
+            menu.innerHTML = "";
+            retter.feed.entry.forEach(ret => {
+                if (filter == "alle" || filter == ret.gsx$kategori.$t) {
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
+                    klon.querySelector("h3").textContent = ret.gsx$navn.$t;
+                    klon.querySelector(".text").textContent = ret.gsx$kort.$t;
+                    klon.querySelector(".price").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                    menu.appendChild(klon);
+                    menu.lastElementChild.addEventListener("click", () => {
+                        location.href = `singleview.html?id=${ret.gsx$id.$t}`;
+                    });
+                }
+            })
+        }
+
+        function buttons() {
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.addEventListener("click", sort);
+            })
+        }
+
+        function sort() {
+            filter = this.dataset.kategori;
+            document.querySelector("#kat").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            visMenu();
+        }
+    </script>
+</body></html>

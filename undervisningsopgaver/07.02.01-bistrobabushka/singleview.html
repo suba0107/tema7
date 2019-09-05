@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+            font-weight: lighter;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .valgt {
+            background-color: orange;
+        }
+
+        button {
+            background-color: white;
+            border-style: solid;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            padding: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        header {
+            margin-top: 1rem;
+        }
+
+        h1 {
+            color: #9b6f1f
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 2rem;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .full {
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        .split {
+            width: 40vw;
+            text-align: justify;
+            padding-right: 2rem;
+        }
+
+        p {
+            margin: 1rem 0;
+        }
+
+        /*    @media screen and (min-width: 608px) {
+            #menu {
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media screen and (min-width: 961px) {
+            #menu {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }*/
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Bistro Babushka</h1>
+    </header>
+    <main id="singlepage">
+        <button class="luk">Tilbage</button>
+        <section class="indhold">
+            <article class="full">
+                <h2></h2>
+                <p class="kategori"></p>
+                <p class="fulltext"></p>
+                <p class="oprindelse"></p>
+                <p class="price"></p>
+                <img class="image" src="" alt="">
+            </article>
+
+        </section>
+    </main>
+
+    <script>
+        let retter;
+        let urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get("id");
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/17Dd7DvkPaFamNUdUKlrFgnH6POvBJXac7qyiS6zNRw0/od6/public/values?alt=json");
+            retter = await jsonData.json();
+            visMenu();
+
+        }
+
+        function visMenu() {
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back();
+            })
+            retter.feed.entry.forEach(ret => {
+                if (ret.gsx$id.$t == id) {
+                    document.querySelector(".full h2").textContent = ret.gsx$navn.$t;
+                    document.querySelector(".full .image").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+                    document.querySelector(".full .image").alt = ret.gsx$billede.$t;
+                    document.querySelector(".fulltext").textContent =
+                        ret.gsx$lang.$t;
+                    document.querySelector(".oprindelse").textContent = `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+                    document.querySelector(".price").textContent = `Pris: ${ret.gsx$pris.$t},-`;
+                }
+            });
+        }
+
+
+        function buttons() {
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.addEventListener("click", sort);
+            })
+        }
+
+        function sort() {
+            filter = this.dataset.kategori;
+            document.querySelector("#kat").textContent = this.textContent;
+            document.querySelectorAll(".filter").forEach(btn => {
+                btn.classList.remove("valgt");
+            })
+            this.classList.add("valgt");
+            visMenu();
+        }
+    </script>
+</body></html>
