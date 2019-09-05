@@ -44,7 +44,7 @@
         }
 
         h1 {
-            color: #9b6f1f
+            color: #9b6f1f;
         }
 
         h2 {
@@ -90,13 +90,10 @@
             font-weight: bold;
         }
 
-        .image {
-            width: 70%;
-        }
+
 
         .full {
-            display: flex;
-            align-items: center;
+            margin: 0 auto;
         }
 
         .split {
@@ -105,12 +102,26 @@
 
         .full h2 {
             text-align: center;
+            font-size: 2rem;
         }
 
         .fulltext {
             text-align: left;
             margin-top: 1rem;
             margin-bottom: 1rem;
+
+        }
+
+
+        @media screen and (min-width: 961px) {
+            .full {
+                display: flex;
+                align-items: center;
+            }
+
+            .image {
+                width: 70%;
+            }
 
         }
     </style>
